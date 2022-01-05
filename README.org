@@ -1,5 +1,9 @@
 #+TITLE: Scribbli UI
 
-* Scribbli UI
+* Description
 
-Main branch will be empty for now. Testing frontend frameworks on other branches.
+Branch currently uses [[https://svelte.dev/tutorial/basics][svelte.js]] framework.
+
+* Other Tools
+
+- [[https://github.com/leafOfTree/svelte-mode][svelte-mode]] (for emacs)
