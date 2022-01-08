@@ -26,7 +26,7 @@
           universeId: $scribbliContext.universeId,
         }
       })
-      push('/worlds/' + res.data.createWorld.world.slug)
+      push('/world/' + res.data.createWorld.world.slug)
     } catch (error) {
       console.error(error) 
     } finally {

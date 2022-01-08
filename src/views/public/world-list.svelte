@@ -21,7 +21,7 @@
       <li>ERROR: {$worlds.error.message}</li>
     {:else if $worlds.data}
       {#each $worlds.data.worldList.edges as edge (edge.world.id)}
-        <li><a href='/worlds/{edge.world.slug}' use:link>{edge.world.name}</a></li>
+        <li><a href='/world/{edge.world.slug}' use:link>{edge.world.name}</a></li>
       {/each}
     {:else}
       <li>No worlds found</li>

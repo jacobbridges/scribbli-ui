@@ -37,7 +37,7 @@
   }
 
   .sidebar {
-    flex-basis: 20rem;
+    flex-basis: 7rem;
     flex-grow: 1;
   }
 
@@ -45,5 +45,9 @@
     flex-basis: 0;
     flex-grow: 999;
     min-width: 75%;
+  }
+
+  .heading {
+    margin-bottom: 1em;
   }
 </style>

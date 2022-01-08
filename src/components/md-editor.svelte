@@ -1,23 +1,32 @@
 <script>
-  import { Editor } from 'bytemd'
-
-  export let callback
-  export let value
+  import { createEventDispatcher } from "svelte"
   
-  const plugins = []
+  // Props
+  export let value
 
-  const handleChange = (e) => {
-    callback(e.detail.value)
+  // Local variables
+  const dispatch = createEventDispatcher()
+
+  // Handlers
+  const handleCancel = () => {
+    dispatch('cancel')
   }
+  
+  const handleSave = () => {
+    dispatch('save', { value })
+  }
+
+  // Reactive statements
+
 </script>
 
 <div class="editor">
 
-  <Editor {value} {plugins} on:change={handleChange} />
+  <textarea bind:value />
 
   <div class="action-tray">
-    <a href=".">Cancel</a>
-    <a href=".">Save</a>
+    <a href="." on:click|preventDefault={handleCancel}>Cancel</a>
+    <a href="." on:click|preventDefault={handleSave}>Save</a>
   </div>
 </div>
 
@@ -30,6 +39,6 @@
   .action-tray {
     display: flex;
     justify-content: flex-start;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 </style>

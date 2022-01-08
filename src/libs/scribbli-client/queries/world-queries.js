@@ -17,10 +17,13 @@ query WorldList($universeId: ID!) {
 export const WORLD_DETAIL = gql`
 query WorldDetail($worldSlug: String!) {
   world: regionBySlug(slug: $worldSlug) {
+    id
     name
+    slug: nameSlug
     author {
       email
     }
+    blurb
   }
 }
 `
@@ -29,6 +32,7 @@ export const WORLD_CREATE = gql`
 mutation WorldCreate($universeId: ID!, $worldName: String!) {
   createWorld(input: {universeId: $universeId, name: $worldName}) {
     world {
+      id
       name
       slug: nameSlug
     }

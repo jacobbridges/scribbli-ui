@@ -26,6 +26,7 @@
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "qs": "^6.10.2",
+    "showdown": "^1.9.1",
     "sirv-cli": "^1.0.0",
     "svelte-forms": "^2.0.7",
     "svelte-router-spa": "^6.0.3",

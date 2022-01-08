@@ -5,9 +5,13 @@
 
   export let params = {}
 
-  const world = query(WORLD_DETAIL, {
+  let world = query(WORLD_DETAIL, {
     variables: { worldSlug: params.slug },
   })
+
+  const handleWorldChange = (e) => {
+    world.refresh()
+  }
 
   // --------------------------------------------------------------------------
   import { User } from '@stores/user-store'
@@ -15,8 +19,8 @@
 
   // --------------------------------------------------------------------------
   import { push } from 'svelte-spa-router'
-  import RegionCreateForm from '@cp/forms/region-create.svelte'
   import About from '@cp/pages/world-detail/about.svelte'
+  import RegionTab from '@cp/pages/world-detail/region-tab.svelte'
 
   const TAB_ABOUT = Symbol('about')
   const TAB_REGIONS = Symbol('regions')
@@ -84,22 +88,12 @@
     {#if $world.data}
       {#if activeTab === TAB_ABOUT}
 
-        <About world={$world.data.world} />
-
-        <div class="col-2">
-          <div>
-            <h4>Test</h4>
-            <p>ao;wsg ao; gna;wogneaowing oiwng;oiwne g;oiawng;oiwang;oinaw;og na;wgn awoign a;woign ;awong ;awoign</p>
-          </div>
-          <div>
-            <h4>Col 2</h4>
-            <p>slkdfhj aowihernbioguv boiuw4n toi2uwh;o48svh dligh bkajwb elikfugv liuasdgilqwue3b f;KMSCBlgkjh 23oi4ufb</p>
-          </div>
-        </div>
+        <About world={$world.data.world} on:worldChange={handleWorldChange} />
 
       {:else if activeTab === TAB_REGIONS}
-        <h3>Create Region</h3>
-        <RegionCreateForm />
+
+        <RegionTab world={$world.data.world} />
+
       {:else if activeTab === TAB_LEXICON}
         <i>Not implemented yet</i>
       {/if}
@@ -108,18 +102,5 @@
 </SidebarLayout>
 
 <style>
-  h3 {
-    margin-top: 0;
-  }
-
-  .italic {
-    font-style: italic;
-  }
-
-  .col-2 {
-    display: flex;
-  }
-  .col-2 > div {
-    width: 50%;
-  }
+  h1 { margin-bottom: 0; }
 </style>

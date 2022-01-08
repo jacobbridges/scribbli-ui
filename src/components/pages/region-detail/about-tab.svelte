@@ -1,13 +1,12 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import showdown from 'showdown'
   import { User } from '@stores/user-store.js'
   import MDEditor from '@cp/md-editor.svelte'
   import { createMutator } from '@scribbli-client'
   import { REGION_EDIT_BLURB } from '@scribbli-client/queries'
   
   // Props
-  export let world
+  export let region
 
   // Local variables
   const MODE = {
@@ -17,7 +16,6 @@
   let currentBlurbMode = MODE.VIEW
   const editRegionBlurb = createMutator(REGION_EDIT_BLURB)
   const dispatch = createEventDispatcher()
-  const mdConverter = new showdown.Converter()
 
   // Handlers
   const handleShowBlurbEditor = () => {
@@ -28,7 +26,7 @@
   }
   const handleBlurbSave = async (e) => {
     const blurb = e.detail.value
-    if (blurb == world.blurb) {
+    if (blurb == region.blurb) {
       // nothing to save
       handleBlurbCancel()
       return
@@ -37,11 +35,11 @@
     try {
       const res = await editRegionBlurb({
         variables: {
-          regionId: world.id,
+          regionId: region.id,
           blurb,
         }
       })
-      dispatch('worldChange', {})
+      dispatch('regionChange', {})
     } catch(e) {
       console.error(e)
     } finally {
@@ -53,18 +51,21 @@
 <h3>About</h3>
 
 {#if currentBlurbMode === MODE.VIEW}
-  {#if world.blurb}
-    <div>{@html mdConverter.makeHtml(world.blurb)}</div>
+  {#if region.blurb}
+    <div>{region.blurb}</div>
   {:else}
-    <div class="italics">No world description provided.</div>
+    <div class="italics">No description provided.</div>
   {/if}
-  {#if $User == world.author.email}
+  {#if $User == region.author.email}
     <div>
       <a href="." on:click|preventDefault={handleShowBlurbEditor}>Edit</a>
     </div>
   {/if}
 {:else if currentBlurbMode === MODE.EDIT}
-  <MDEditor value={world.blurb} on:save={handleBlurbSave} on:cancel={handleBlurbCancel} />
+  <MDEditor
+    value={region.blurb}
+    on:save={handleBlurbSave}
+    on:cancel={handleBlurbCancel} />
 {/if}
 
 <style>
