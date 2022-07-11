@@ -17,6 +17,10 @@
     cache: new InMemoryCache(),
   })
 
+  import { scribbliContext } from '@stores/scribbli-context-store'
+  import { User } from '@stores/user-store'
+
+
   // Get Scribbli context from backend
   const appContextPromise = client
         .query({query: appContextQuery, fetchPolicy: 'no-cache'})
@@ -26,6 +30,16 @@
           isLoggedIn: result.data.appContext.isLoggedIn,
           userdata: result.data.appContext.userdata,
         }))
+        .then(ctx => {
+          if (ctx.isLoggedIn) {
+            User.signin(ctx.userdata)
+          }
+          scribbliContext.set({
+            csrftoken: ctx.csrftoken,
+            universeId: ctx.universeId
+          })
+          return ctx
+        })
   
 
   // Get CSRF token

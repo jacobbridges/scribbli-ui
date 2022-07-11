@@ -12,6 +12,9 @@ import WorldList from '@views/public/world-list.svelte'
 import WorldCreate from '@views/public/world-create.svelte'
 import WorldDetail from '@views/public/world-detail.svelte'
 import RegionDetail from '@views/public/region-detail.svelte'
+import StoryList from '@views/public/story-list.svelte'
+import StoryCreate from '@views/public/story-create.svelte'
+import StoryDetail from '@views/public/story-detail.svelte'
 import ErrorNotFound from '@views/errors/not_found.svelte'
 
 const authwall = async (detail) => {
@@ -40,11 +43,16 @@ export const routes = {
   // Login via magic link
   '/login-from-magic-link': LoginFromMagicLink,
 
-  // -- Worlds
+  // -- World
   '/worlds': authwrap(WorldList),
   '/new-world': authwrap(WorldCreate),    // World create page
   '/world/:slug': authwrap(WorldDetail), // World detail page
   '/world/:worldSlug/region/:regionSlug': authwrap(RegionDetail),  // Region detail page
+
+  // -- Story
+  '/stories': authwrap(StoryList),
+  '/new-story': authwrap(StoryCreate),
+  '/story/:slug': authwrap(StoryDetail),
 
   // Catch all
   '*': ErrorNotFound,

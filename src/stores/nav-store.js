@@ -12,6 +12,10 @@ export const publicNavLinks = readable([], (set) => {
       title: 'Worlds',
       href: '/worlds',
     },
+    {
+      title: 'Stories',
+      href: '/stories',
+    }
   ])
 
   return () => {}

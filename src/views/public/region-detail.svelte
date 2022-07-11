@@ -4,6 +4,7 @@
   import { push, replace, link } from 'svelte-spa-router'
   import { query } from '@scribbli-client'
   import { REGION_DETAIL_BY_SLUG_WITH_WORLD } from '@scribbli-client/queries'
+  import { generateTabs } from '@src/utils'
   import SidebarLayout from '@layouts/public-sidebar.svelte'
   import AboutTab from '@cp/pages/region-detail/about-tab.svelte'
   import RegionChildren from '@cp/region-children-list.svelte'
@@ -13,17 +14,17 @@
   export let params = {}
 
   // Local variables ----------------------------------------------------------
-  const generateTabs = (config, activeStore) => {
-    return config.map(([index, title]) => ({
-      title,
-      index,
-      get load() {
-        return () => {
-          activeStore.set(index)
-        }
-      },
-    }))
-  }
+  //const generateTabs = (config, activeStore) => {
+  //  return config.map(([index, title]) => ({
+  //    title,
+  //    index,
+  //    get load() {
+  //      return () => {
+  //        activeStore.set(index)
+  //      }
+  //    },
+  //  }))
+  //}
   const { worldSlug, regionSlug } = params
   let req = query(REGION_DETAIL_BY_SLUG_WITH_WORLD, {
     variables: { worldSlug, regionSlug }
@@ -37,7 +38,6 @@
     [TAB_REGIONS, 'Regions'],
     [TAB_LEXICON, 'Lexicon'],
   ], activeTab)
-  window.a = tabs
 
   
   // Reactive statements ------------------------------------------------------
